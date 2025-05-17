@@ -25,8 +25,45 @@ git config --global user.email 2827627125@qq.com
 
 这就是说,当前GitHub上的远程仓库进度其实是落后于我们本地仓库进度的
 
-这个
+这个时候,可以看到显示"同步更改",点击之后就可以发现我们新提交的部分旁边也有了一个云朵
 
 ## 关于文件旁边显示的字母问题
 - 大写的黄色字母M:这通常表示 Modified（已修改）。意味着该文件自从上次提交后已经被修改了，但是还没有被添加到暂存区（即没有通过 git add 命令将更改添加到下一次提交中）,要是这个时候运行git status来查看文件的状态,就可以看到文件列在"Changes not staged for commit"之下,提示你需要使用git add来暂存这些更改
 - 绿色的大写U:这种情况稍微复杂一点,它涉及到合并冲突,当git尝试去自动合并分支的过程中遇到无法自动解决的冲突时,就会出现这种状态
+
+## 接下来是一些命令
+如果要查看本地仓库的提交记录,可以使用指令:git log,使用这个命令的时候,终端一定要位于我们想要查看的仓库的目录之下:
+```shell
+(base) PS C:\Users\28276\Desktop\第二轮考核ROS\学习git的文件夹> git log
+commit e25ef761c06eabc196dde7d55c0eb351e07ba87e (HEAD -> main, origin/main, origin/HEAD)
+Author: 之焉兹若 <2827627125@qq.com>
+Date:   Sat May 17 09:30:06 2025 +0800
+
+    第四次提交
+```
+主要就是一些这样子的消息,第二行的括号内容看起来比较令人疑惑,来解释一下:
+1. (HEAD -> main, origin/main, origin/HEAD) 的含义：
+- HEAD -> main
+- HEAD 是一个“指针”，表示你当前在哪个提交上。
+- main 是你当前所在的本地分支。
+- 所以 HEAD -> main 表示：当前你在 main 分支上，且这个提交就是 main 分支的最新提交。
+
+换句话说，你现在正在 main 分支工作，并且这个提交是 main 分支的顶端（tip）。
+
+2. origin/main
+- 这是一个远程跟踪分支，表示你在本地记录的远程仓库（即 origin）中 main 分支的最新提交。
+- 也就是说，Git 认为远程仓库的 main 分支目前也指向这个提交。
+
+所以 origin/main 和 main 是同步的，没有差异。
+
+3. origin/HEAD
+- 这是远程仓库默认分支的指针。
+- 通常情况下，它指向远程的默认分支（如 origin/main 或 origin/master）。
+
+它的作用是告诉你，如果你不指定分支克隆仓库，默认会检出的是哪个分支。
+
+总结一下就是:
+1. 当前你处于 main 分支。
+2. HEAD 指向 main 分支的顶端（也就是这次提交）。
+3. 远程仓库 origin 的 main 分支也指向这个提交（说明本地和远程同步）。
+4. 远程的默认分支是 origin/main
